@@ -1,0 +1,237 @@
+<div class="home-page">
+
+  <header class="navbar">
+
+    <div class="logo">
+      <span class="logo-icon">A</span>
+      <span>AuthApp</span>
+    </div>
+
+    <div class="profile-wrapper">
+
+      <button
+        class="profile-button"
+        type="button"
+        (click)="toggleProfile()"
+      >
+        <span class="profile-avatar">
+          {{ userInitial }}
+        </span>
+
+        <span class="profile-name">
+          {{ userName }}
+        </span>
+
+        <span class="profile-arrow">
+          {{ isProfileOpen ? '▲' : '▼' }}
+        </span>
+      </button>
+
+
+      @if (isProfileOpen) {
+
+        <div class="profile-menu">
+
+          <div class="profile-info">
+
+            <div class="profile-avatar large">
+              {{ userInitial }}
+            </div>
+
+            <div>
+
+              <strong>
+                {{ userName }}
+              </strong>
+
+              <span>
+                {{ userEmail }}
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="menu-divider"></div>
+
+          <button
+            type="button"
+            class="logout-button"
+            (click)="logout()"
+          >
+            Logout
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  </header>
+
+
+  <main>
+
+    <section
+      class="hero"
+      [style.background-image]="
+        'url(' + slides[currentSlide].image + ')'
+      "
+    >
+
+      <div class="hero-overlay"></div>
+
+      <button
+        type="button"
+        class="slide-arrow left"
+        (click)="previousSlide()"
+        aria-label="Previous slide"
+      >
+        ‹
+      </button>
+
+      <div class="hero-content">
+
+        <p class="eyebrow">
+          {{ slides[currentSlide].eyebrow }}
+        </p>
+
+        <h1>
+          {{ slides[currentSlide].title }}
+        </h1>
+
+        <p class="hero-description">
+          {{ slides[currentSlide].description }}
+        </p>
+
+        <button
+          type="button"
+          class="explore-button"
+        >
+          Explore now
+          <span>→</span>
+        </button>
+
+      </div>
+
+      <button
+        type="button"
+        class="slide-arrow right"
+        (click)="nextSlide()"
+        aria-label="Next slide"
+      >
+        ›
+      </button>
+
+
+      <div class="slide-controls">
+
+        @for (
+          slide of slides;
+          track $index
+          ) {
+
+          <button
+            type="button"
+            class="dot"
+            [class.active]="
+              currentSlide === $index
+            "
+            (click)="selectSlide($index)"
+            [attr.aria-label]="
+              'Go to slide ' + ($index + 1)
+            "
+          ></button>
+
+        }
+
+      </div>
+
+    </section>
+
+
+    <section class="welcome-section">
+
+      <div class="welcome-content">
+
+        <span class="section-label">
+          YOUR SPACE
+        </span>
+
+        <h2>
+          Welcome, {{ userName }}.
+        </h2>
+
+        <p>
+          You're successfully signed in.
+          Take a moment to explore your
+          personalized space and discover
+          what's waiting for you.
+        </p>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+        <div class="feature-card">
+
+          <div class="feature-icon">
+            ✦
+          </div>
+
+          <h3>
+            Discover
+          </h3>
+
+          <p>
+            Find new ideas, places and
+            experiences that inspire you.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div class="feature-icon">
+            ◇
+          </div>
+
+          <h3>
+            Explore
+          </h3>
+
+          <p>
+            Step outside the ordinary and
+            experience something different.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div class="feature-icon">
+            ○
+          </div>
+
+          <h3>
+            Enjoy
+          </h3>
+
+          <p>
+            Make every moment meaningful
+            and beautifully memorable.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
