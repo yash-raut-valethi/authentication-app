@@ -51,6 +51,7 @@ public class SecurityConfig {
                                 "/auth/login",
                                 "/auth/register"
                         ).permitAll()
+                        .requestMatchers("/profile/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(

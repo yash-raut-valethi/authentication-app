@@ -1,3 +1,4 @@
+
 <div class="home-page">
 
   <header class="navbar">
@@ -27,7 +28,6 @@
         </span>
       </button>
 
-
       @if (isProfileOpen) {
 
         <div class="profile-menu">
@@ -39,7 +39,6 @@
             </div>
 
             <div>
-
               <strong>
                 {{ userName }}
               </strong>
@@ -47,12 +46,19 @@
               <span>
                 {{ userEmail }}
               </span>
-
             </div>
 
           </div>
 
           <div class="menu-divider"></div>
+
+          <button
+            type="button"
+            class="view-profile-button"
+            (click)="viewProfile()"
+          >
+            View Profile
+          </button>
 
           <button
             type="button"
@@ -69,6 +75,102 @@
     </div>
 
   </header>
+
+
+  @if (isProfileModalOpen) {
+
+    <div
+      class="profile-modal-overlay"
+      (click)="closeProfile()"
+    >
+
+      <section
+        class="profile-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="profile-modal-title"
+        (click)="$event.stopPropagation()"
+      >
+
+        <div class="profile-modal-header">
+
+          <div>
+            <span class="section-label">
+              YOUR ACCOUNT
+            </span>
+
+            <h2 id="profile-modal-title">
+              View Profile
+            </h2>
+          </div>
+
+          <button
+            type="button"
+            class="profile-close-button"
+            aria-label="Close profile"
+            (click)="closeProfile()"
+          >
+            &times;
+          </button>
+
+        </div>
+
+        @if (isProfileLoading) {
+
+          <p class="profile-status">
+            Loading profile details...
+          </p>
+
+        } @else if (profileError) {
+
+          <div class="profile-error">
+            {{ profileError }}
+          </div>
+
+          <button
+            type="button"
+            class="profile-retry-button"
+            (click)="viewProfile()"
+          >
+            Try Again
+          </button>
+
+        } @else if (profileDetails) {
+
+          <div class="profile-modal-content">
+
+            <div class="profile-modal-avatar">
+              {{ profileInitial }}
+            </div>
+
+            @for (
+              field of profileFields;
+              track field.label
+              ) {
+
+              <div class="profile-detail-row">
+
+                <span class="profile-detail-label">
+                  {{ field.label }}
+                </span>
+
+                <strong class="profile-detail-value">
+                  {{ field.value }}
+                </strong>
+
+              </div>
+
+            }
+
+          </div>
+
+        }
+
+      </section>
+
+    </div>
+
+  }
 
 
   <main>
@@ -124,7 +226,6 @@
         ›
       </button>
 
-
       <div class="slide-controls">
 
         @for (
@@ -135,9 +236,7 @@
           <button
             type="button"
             class="dot"
-            [class.active]="
-              currentSlide === $index
-            "
+            [class.active]="currentSlide === $index"
             (click)="selectSlide($index)"
             [attr.aria-label]="
               'Go to slide ' + ($index + 1)

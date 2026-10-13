@@ -147,7 +147,8 @@ export class App {
         `${this.API_URL}/login`,
         loginData,
         {
-          responseType: 'text'
+          responseType: 'text',
+          withCredentials: true
         }
       )
       .subscribe({
