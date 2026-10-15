@@ -298,18 +298,11 @@ export class App {
 
         next: (response: string) => {
 
-          console.log(
-            'Registration successful:',
-            response
-          );
-
           this.isLoading = false;
-
           this.errorMessage = '';
 
           this.successMessage =
-            response ||
-            'Registration successful.';
+            response || 'Registration successful.';
 
           this.registerForm.reset();
 
@@ -319,42 +312,31 @@ export class App {
 
         error: (error) => {
 
-          console.error(
-            'Registration error:',
-            error
-          );
+          console.error('Registration error:', error);
 
           let message = '';
 
-          if (
-            typeof error?.error === 'string'
-          ) {
+          const responseBody = error?.error;
 
-            message = error.error;
-
-          } else if (
-            error?.error?.message
-          ) {
-
-            message = error.error.message;
-
-          } else {
-
+          if (typeof responseBody === 'string') {
+            message = responseBody;
+          } else if (responseBody && typeof responseBody === 'object') {
             message =
-              'Registration failed. Please try again.';
-
+              responseBody.message ||
+              responseBody.defaultMessage ||
+              responseBody.detail ||
+              responseBody.error ||
+              '';
           }
 
-          message =
-            message.replace(
-              /^Error:\s*/i,
-              ''
-            );
+          if (!message) {
+            message = 'Registration failed. Please try again.';
+          }
+
+          message = message.replace(/^Error:\s*/i, '');
 
           this.isLoading = false;
-
           this.successMessage = '';
-
           this.errorMessage = message;
 
           this.cdr.detectChanges();
