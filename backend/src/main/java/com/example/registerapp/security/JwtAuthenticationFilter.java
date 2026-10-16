@@ -45,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = null;
 
-        // First, check for a Bearer token.
+        // First, check for a ******
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null &&
@@ -54,7 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             token = authHeader.substring(7);
         }
 
-        // If no Bearer token exists, check the JWT cookie.
+        // If no ****** exists, check the JWT cookie.
         if (token == null || token.isBlank()) {
 
             Cookie[] cookies = request.getCookies();
