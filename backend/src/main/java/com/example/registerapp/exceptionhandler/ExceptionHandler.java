@@ -5,6 +5,7 @@ import com.example.registerapp.exception.UserAlreadyExistException;
 import com.example.registerapp.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 
 @ControllerAdvice
@@ -25,4 +26,23 @@ public class ExceptionHandler {
     public ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex){
         return new ResponseEntity<>("Error: "+ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleValidationError(
+            MethodArgumentNotValidException ex) {
+
+        String message = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .filter(error -> "password".equals(error.getField()))
+                .map(error -> error.getDefaultMessage())
+                .filter(java.util.Objects::nonNull)
+                .findFirst()
+                .orElse("Invalid registration details.");
+
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .body(message);
+    }
 }
+
