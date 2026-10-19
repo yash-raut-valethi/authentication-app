@@ -23,7 +23,7 @@ public class ProfileController {
     }
 
 
-    @PostMapping("/password/reset/authenticate")
+    @PostMapping("/password/reset/verify")
     public void resetPasswordAuthenticate(@RequestBody String currentPassword){
         profileService.verifyCurrentPassword(currentPassword);
     }
