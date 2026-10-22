@@ -7,7 +7,19 @@
         <div class="profile-info"><div class="profile-avatar large">{{ userInitial }}</div><div><strong>{{ userName }}</strong><span>{{ userEmail }}</span></div></div>
         <div class="menu-divider"></div>
         <button type="button" class="view-profile-button" (click)="viewProfile()">View Profile</button>
-        <button type="button" class="logout-button" (click)="logout()">Logout</button>
+
+        <button
+          type="button"
+          class="logout-button"
+          (click)="logout()"
+          [disabled]="isLoggingOut"
+          [attr.aria-busy]="isLoggingOut"
+        >
+          {{ isLoggingOut ? 'Signing out...' : 'Logout' }}
+        </button>
+        <p *ngIf="logoutError" class="logout-error" role="alert">
+          {{ logoutError }}
+        </p>
       </div>
     </div>
   </header>
