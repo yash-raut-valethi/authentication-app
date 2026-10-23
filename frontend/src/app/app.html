@@ -1,301 +1,62 @@
 @if (!isHomePage) {
-
-  <div class="auth-page">
-
-    <div class="auth-card">
-
-      <div class="brand">
-
-        <div class="brand-icon">
-          A
-        </div>
-
-        <span>AuthApp</span>
-
+<main class="auth-page">
+  <section class="showcase" aria-label="About HelpDesk">
+    <div class="showcase-inner">
+      <div class="brand brand-light">
+        <span class="brand-icon"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 20a11 11 0 0 1 22 0v7a4 4 0 0 1-4 4h-3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="5" y="18" width="7" height="12" rx="3.5" fill="currentColor"/><rect x="28" y="18" width="7" height="12" rx="3.5" fill="currentColor"/><path d="M15 24h10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span>
+        <span>HelpDesk<span class="brand-dot">.</span></span>
       </div>
-
-
-      @if (!isRegisterMode) {
-
-        <div class="auth-header">
-
-          <h1>
-            Welcome back
-          </h1>
-
-          <p>
-            Sign in to continue to your account
-          </p>
-
-        </div>
-
-
-        @if (errorMessage) {
-
-          <div class="message error">
-            {{ errorMessage }}
-          </div>
-
-        }
-
-
-        @if (successMessage) {
-
-          <div class="message success">
-            {{ successMessage }}
-          </div>
-
-        }
-
-
-        <form
-          [formGroup]="loginForm"
-          (ngSubmit)="login()"
-        >
-
-          <div class="form-group">
-
-            <label for="login-email">
-              Email address
-            </label>
-
-            <input
-              id="login-email"
-              type="email"
-              formControlName="email"
-              placeholder="you@example.com"
-              autocomplete="email"
-            />
-
-            @if (
-              loginEmail?.touched &&
-              loginEmail?.invalid
-              ) {
-
-              <small class="field-error">
-                Please enter a valid email address.
-              </small>
-
-            }
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="login-password">
-              Password
-            </label>
-
-            <input
-              id="login-password"
-              type="password"
-              formControlName="password"
-              placeholder="Enter your password"
-              autocomplete="current-password"
-            />
-
-            @if (
-              loginPassword?.touched &&
-              loginPassword?.invalid
-              ) {
-
-              <small class="field-error">
-                Password is required.
-              </small>
-
-            }
-
-          </div>
-
-
-          <button
-            type="submit"
-            class="primary-button"
-            [disabled]="isLoading"
-          >
-
-            {{ isLoading ? 'Signing in...' : 'Login' }}
-
-          </button>
-
-        </form>
-
-
-        <div class="switch-auth">
-
-          <span>
-            New user?
-          </span>
-
-          <button
-            type="button"
-            (click)="showRegister()"
-          >
-            Register
-          </button>
-
-        </div>
-
-      }
-
-
-      @if (isRegisterMode) {
-
-        <div class="auth-header">
-
-          <h1>
-            Create account
-          </h1>
-
-          <p>
-            Register to get started with your account
-          </p>
-
-        </div>
-
-
-        @if (errorMessage) {
-
-          <div class="message error">
-            {{ errorMessage }}
-          </div>
-
-        }
-
-
-        @if (successMessage) {
-
-          <div class="message success">
-            {{ successMessage }}
-          </div>
-
-        }
-
-
-        <form
-          [formGroup]="registerForm"
-          (ngSubmit)="register()"
-        >
-
-          <div class="form-group">
-
-            <label for="register-name">
-              Full name
-            </label>
-
-            <input
-              id="register-name"
-              type="text"
-              formControlName="name"
-              placeholder="John Doe"
-              autocomplete="name"
-            />
-
-            @if (
-              registerName?.touched &&
-              registerName?.invalid
-              ) {
-
-              <small class="field-error">
-                Please enter your name.
-              </small>
-
-            }
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="register-email">
-              Email address
-            </label>
-
-            <input
-              id="register-email"
-              type="email"
-              formControlName="email"
-              placeholder="you@example.com"
-              autocomplete="email"
-            />
-
-            @if (
-              registerEmail?.touched &&
-              registerEmail?.invalid
-              ) {
-
-              <small class="field-error">
-                Please enter a valid email address.
-              </small>
-
-            }
-
-          </div>
-
-
-          <div class="form-group">
-
-            <label for="register-password">
-              Password
-            </label>
-
-            <input
-              id="register-password"
-              type="password"
-              formControlName="password"
-              placeholder="Create a password"
-              autocomplete="new-password"
-            />
-
-            @if (
-              registerPassword?.touched &&
-              registerPassword?.invalid
-              ) {
-
-              <small class="field-error">
-                Password is required.
-              </small>
-
-            }
-
-          </div>
-
-
-          <button
-            type="submit"
-            class="primary-button"
-            [disabled]="isLoading"
-          >
-
-            {{ isLoading ? 'Creating account...' : 'Register' }}
-
-          </button>
-
-        </form>
-
-
-        <div class="switch-auth">
-
-          <span>
-            Already have an account?
-          </span>
-
-          <button
-            type="button"
-            (click)="showLogin()"
-          >
-            Login
-          </button>
-
-        </div>
-
-      }
-
+      <div class="showcase-copy"><span class="eyebrow">THE MODERN SUPPORT WORKSPACE</span><h1>Better support.<br/><em>Stronger teams.</em></h1><p>One thoughtfully designed platform to bring your people, conversations and customer support together.</p>
+        <div class="showcase-points"><div><span class="point-icon">✓</span> Built for teams of every size</div><div><span class="point-icon">✓</span> Secure, streamlined access</div><div><span class="point-icon">✓</span> One place for better service</div></div>
+      </div>
+      <div class="showcase-footer">HELPDESK PLATFORM <span>•</span> WORK SMARTER, SUPPORT BETTER</div>
     </div>
-
-  </div>
-
+  </section>
+  <section class="form-side">
+    <div class="auth-card">
+      <div class="mobile-brand brand"><span class="brand-icon"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 20a11 11 0 0 1 22 0v7a4 4 0 0 1-4 4h-3" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><rect x="5" y="18" width="7" height="12" rx="3.5" fill="currentColor"/><rect x="28" y="18" width="7" height="12" rx="3.5" fill="currentColor"/><path d="M15 24h10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span><span>HelpDesk<span class="brand-dot">.</span></span></div>
+      @if (screen === 'login') {
+      <div class="auth-header"><span class="overline">WELCOME BACK</span><h2>Sign in to your account</h2><p>Enter your details to access your workspace.</p></div>
+      } @else if (screen === 'register') {
+      <div class="auth-header"><span class="overline">GET STARTED</span><h2>Create your account</h2><p>Set up your account and start supporting smarter.</p></div>
+      } @else if (screen === 'email') {
+      <button class="back-link" type="button" (click)="showLogin()">← Back to sign in</button><div class="auth-header"><span class="step-icon">✉</span><h2>Forgot your password?</h2><p>Enter your account email and we'll send you a verification code.</p></div>
+      } @else if (screen === 'otp') {
+      <button class="back-link" type="button" (click)="showForgotPassword()">← Change email</button><div class="auth-header"><span class="step-icon">✉</span><h2>Verify your email</h2><p>Enter the 6-digit code sent to <strong>{{ verifiedEmail }}</strong>.</p></div>
+      } @else if (screen === 'reset') {
+      <div class="auth-header"><span class="step-icon">🔒</span><h2>Reset your password?</h2><p>Your email is verified. Set a new password now, or skip and continue to your dashboard.</p></div>
+      } @else {
+      <div class="complete-state"><span class="complete-icon">✓</span><h2>You're all set!</h2><p role="status">{{ completionMessage }}</p><span class="redirect-spinner" aria-hidden="true"></span></div>
+      }
+      @if (errorMessage) { <div class="message error" role="alert">{{ errorMessage }}</div> }
+      @if (successMessage) { <div class="message success" role="status">{{ successMessage }}</div> }
+      @if (screen === 'login') {
+      <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+        <div class="form-group"><label for="login-email">Work email</label><input id="login-email" type="email" formControlName="email" placeholder="name@company.com" autocomplete="email" />@if (loginEmail.touched && loginEmail.invalid) { <small class="field-error">Enter a valid email address.</small> }</div>
+        <div class="form-group"><div class="label-row"><label for="login-password">Password</label><button type="button" class="text-link" (click)="showForgotPassword()">Forgot password?</button></div><div class="password-wrap"><input id="login-password" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter your password" autocomplete="current-password"/><button type="button" class="visibility" (click)="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</button></div>@if (loginPassword.touched && loginPassword.invalid) { <small class="field-error">Password is required.</small> }</div>
+        <button class="primary-button" type="submit" [disabled]="isLoading">{{ isLoading ? 'Signing in...' : 'Sign in' }} <span aria-hidden="true">→</span></button>
+      </form><div class="switch-auth">New to HelpDesk? <button type="button" (click)="showRegister()">Create an account</button></div>
+      }
+      @if (screen === 'register') {
+      <form [formGroup]="registerForm" (ngSubmit)="register()" novalidate>
+        <div class="form-group"><label for="register-name">Full name</label><input id="register-name" type="text" formControlName="name" placeholder="Your full name" autocomplete="name"/>@if (registerName.touched && registerName.invalid) { <small class="field-error">Enter at least 2 characters.</small> }</div>
+        <div class="form-group"><label for="register-email">Work email</label><input id="register-email" type="email" formControlName="email" placeholder="name@company.com" autocomplete="email"/>@if (registerEmail.touched && registerEmail.invalid) { <small class="field-error">Enter a valid email address.</small> }</div>
+        <div class="form-group"><label for="register-password">Password</label><div class="password-wrap"><input id="register-password" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Create a strong password" autocomplete="new-password"/><button type="button" class="visibility" (click)="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</button></div><small class="helper">8+ characters, 2 uppercase, 3 lowercase, 2 numbers and 1 of ! @ # $ &amp; *</small>@if (registerPassword.touched && registerPassword.invalid) { <small class="field-error">Password doesn't meet the requirements.</small> }</div>
+        <button class="primary-button" type="submit" [disabled]="isLoading">{{ isLoading ? 'Creating account...' : 'Create account' }} <span aria-hidden="true">→</span></button>
+      </form><div class="switch-auth">Already have an account? <button type="button" (click)="showLogin()">Sign in</button></div>
+      }
+      @if (screen === 'email') {
+      <form [formGroup]="emailForm" (ngSubmit)="sendOtp()" novalidate><div class="form-group"><label for="recovery-email">Email address</label><input id="recovery-email" type="email" formControlName="email" placeholder="name@company.com" autocomplete="email"/>@if (emailForm.controls.email.touched && emailForm.controls.email.invalid) { <small class="field-error">Enter a valid email address.</small> }</div><button type="submit" class="primary-button" [disabled]="isLoading">{{ isLoading ? 'Sending code...' : 'Send verification code' }} <span>→</span></button></form>
+      }
+      @if (screen === 'otp') {
+      <form (ngSubmit)="verifyOtp()"><label class="otp-label">Verification code</label><div class="otp-inputs" (paste)="onOtpPaste($event)">@for (digit of otpDigits; track $index) { <input [id]="'otp-' + $index" [value]="digit" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" [attr.aria-label]="'Code digit ' + ($index + 1)" (input)="onOtpInput($event, $index)" (keydown)="onOtpKeydown($event, $index)"/> }</div><div class="otp-meta"><span class="timer" [class.expired]="remainingSeconds === 0">◷ {{ formattedTime }} remaining</span><button class="text-link" type="button" (click)="resendOtp()" [disabled]="isLoading">Resend OTP</button></div>@if (remainingSeconds === 0) { <p class="field-error">Code expired. Resend to get a new code.</p> }<button class="primary-button" type="submit" [disabled]="isLoading || otpValue.length !== 6 || remainingSeconds === 0">{{ isLoading ? 'Verifying...' : 'Verify & continue' }} <span>→</span></button></form>
+      }
+      @if (screen === 'reset') {
+      <form [formGroup]="resetForm" (ngSubmit)="submitReset()" novalidate><div class="form-group"><label for="new-password">New password</label><div class="password-wrap"><input id="new-password" [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Enter a new password" autocomplete="new-password"/><button class="visibility" type="button" (click)="showPassword = !showPassword">{{ showPassword ? 'Hide' : 'Show' }}</button></div><small class="helper">8+ characters, 2 uppercase, 3 lowercase, 2 numbers and 1 of ! @ # $ &amp; *</small>@if (resetForm.controls.password.touched && resetForm.controls.password.invalid) { <small class="field-error">Password doesn't meet the requirements.</small> }</div><div class="form-group"><label for="confirm-password">Confirm new password</label><div class="password-wrap"><input id="confirm-password" [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="Confirm your new password" autocomplete="new-password"/><button class="visibility" type="button" (click)="showConfirmPassword = !showConfirmPassword">{{ showConfirmPassword ? 'Hide' : 'Show' }}</button></div>@if (resetForm.controls.confirmPassword.touched && resetForm.hasError('passwordMismatch')) { <small class="field-error">Passwords do not match.</small> }@if (resetForm.controls.confirmPassword.touched && resetForm.controls.confirmPassword.hasError('required')) { <small class="field-error">Please confirm your password.</small> }</div><button class="primary-button" type="submit" [disabled]="isLoading">{{ isLoading ? 'Updating password...' : 'Reset password' }} <span>→</span></button><button class="secondary-button" type="button" [disabled]="isLoading" (click)="skipReset()">Skip for now</button></form>
+      }
+      <div class="security-note"> <span aria-hidden="true">♢</span> Secure access to your HelpDesk workspace</div>
+    </div>
+  </section>
+</main>
 }
-
 <router-outlet></router-outlet>

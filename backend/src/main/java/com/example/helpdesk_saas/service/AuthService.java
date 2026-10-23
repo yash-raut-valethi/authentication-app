@@ -112,7 +112,6 @@ public class AuthService {
 
     private String generateOTP(){
         StringBuilder otp = new StringBuilder(6);
-        Random random = new Random();
         for(int i=1;i<=6;i++){
             otp.append(secureRandom.nextInt(10));
         }
