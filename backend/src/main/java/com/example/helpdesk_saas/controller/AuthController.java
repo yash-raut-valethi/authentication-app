@@ -1,6 +1,7 @@
 package com.example.helpdesk_saas.controller;
 
 
+import com.example.helpdesk_saas.dto.ForgotPasswordRequestDTO;
 import com.example.helpdesk_saas.dto.LoginDTO;
 import com.example.helpdesk_saas.dto.RegisterDTO;
 import com.example.helpdesk_saas.service.AuthService;
@@ -86,9 +87,9 @@ public class AuthController {
     }
 
 
-    @PostMapping("/login/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestBody String email){
-        String response = authService.forgotPassword(email);
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequestDTO requestDTO){
+        String response = authService.forgotPassword(requestDTO.getEmail());
         return ResponseEntity.ok(response);
     }
 

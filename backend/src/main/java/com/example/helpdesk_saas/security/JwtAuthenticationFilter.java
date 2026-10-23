@@ -166,6 +166,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         return "OPTIONS".equalsIgnoreCase(request.getMethod())
                 || "/auth/login".equals(path)
-                || "/auth/register".equals(path);
+                || "/auth/register".equals(path)
+                || "auth/forgot-password".equals(path);
     }
 }

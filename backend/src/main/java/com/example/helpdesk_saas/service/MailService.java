@@ -9,13 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailService {
     private final JavaMailSender mailSender;
-    @Value("{GMAIL_USERNAME}")
-    private final String emailFrom;
+    @Value("${GMAIL_USERNAME}")
+    private String emailFrom;
 
 
-    public MailService(JavaMailSender mailSender,String emailFrom) {
+    public MailService(JavaMailSender mailSender) {
         this.mailSender = mailSender;
-        this.emailFrom= emailFrom;
     }
 
     public void sendSimpleMail(String to, String subject, String text) {

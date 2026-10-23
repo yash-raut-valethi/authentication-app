@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Random;
 
@@ -25,6 +26,7 @@ public class AuthService {
     private final BlackListedAccessTokenRepository blackListedAccessTokenRepository;
     private final StringRedisTemplate redisTemplate;
     private final MailService mailService;
+    private final SecureRandom secureRandom = new SecureRandom();
 
     public AuthService(PasswordEncoder passwordEncoder, UserRepository userRepository, JwtService jwtService, BlackListedAccessTokenRepository blackListedAccessTokenRepository,StringRedisTemplate redisTemplate,MailService mailService) {
         this.passwordEncoder = passwordEncoder;
@@ -76,7 +78,10 @@ public class AuthService {
 
 
     public String forgotPassword(String email){
-        Optional<User> optionalUser = userRepository.findByEmail(email);
+        System.out.println("Received email: [" + email + "]");
+        Optional<User> optionalUser = userRepository.findByEmail(email.trim());
+
+        System.out.println("User found: " + optionalUser.isPresent());
         if(optionalUser.isEmpty()){
             throw new UserNotFoundException("Email id not registered. Please register first.");
         }
@@ -85,7 +90,7 @@ public class AuthService {
         try{
             String to = email;
             String subject = "OTP for Login on HelpDesk" ;
-            String text =  "Hello HelpDesk User! ,\n"+ "Below is your OTP for login using forgot password: \n" + otp ;
+            String text =  "Hello HelpDesk User ! ,\n\n"+ "Below is your OTP for login using forgot password: \n\n" + otp ;
             mailService.sendSimpleMail(to,subject,text);
         }
         catch(Exception e){
@@ -97,12 +102,12 @@ public class AuthService {
 
 
     private String generateOTP(){
-        String otp ="";
+        StringBuilder otp = new StringBuilder(6);
         Random random = new Random();
         for(int i=1;i<=6;i++){
-            otp += random.ints(0,10);
+            otp.append(secureRandom.nextInt(10));
         }
-        return otp;
+        return otp.toString();
     }
 
 }
