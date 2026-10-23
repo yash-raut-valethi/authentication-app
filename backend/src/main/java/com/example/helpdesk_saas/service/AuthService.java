@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class AuthService {
@@ -78,19 +79,17 @@ public class AuthService {
 
 
     public String forgotPassword(String email){
-        System.out.println("Received email: [" + email + "]");
         Optional<User> optionalUser = userRepository.findByEmail(email.trim());
-
-        System.out.println("User found: " + optionalUser.isPresent());
         if(optionalUser.isEmpty()){
             throw new UserNotFoundException("Email id not registered. Please register first.");
         }
         String otp = generateOTP();
-        redisTemplate.opsForValue().set(email, otp);
+        redisTemplate.opsForValue().set(email, otp,  5,
+                TimeUnit.MINUTES);
         try{
             String to = email;
             String subject = "OTP for Login on HelpDesk" ;
-            String text =  "Hello HelpDesk User ! ,\n\n"+ "Below is your OTP for login using forgot password: \n\n" + otp ;
+            String text =  "Hello HelpDesk User ! ,\n\n"+ "Below is your OTP for login using forgot password: \n\n" + otp + "\n\nThis OTP is valid for 5 minutes. Please do not share the otp with anyone.";
             mailService.sendSimpleMail(to,subject,text);
         }
         catch(Exception e){
@@ -98,6 +97,16 @@ public class AuthService {
         }
         return "Please check the OTP sent to the email ID";
 
+    }
+
+    public String verifyLoginOTP(String email, String otp){
+       String storedOtp = redisTemplate.opsForValue().get(email);
+        if(storedOtp==null || !storedOtp.equals(otp)){
+            throw new InvalidCredentialsException("Invalid otp. Please try again.");
+        }
+        return jwtService.generateToken(
+                email
+        );
     }
 
 

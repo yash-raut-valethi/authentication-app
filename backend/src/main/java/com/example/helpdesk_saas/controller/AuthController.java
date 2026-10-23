@@ -1,6 +1,7 @@
 package com.example.helpdesk_saas.controller;
 
 
+import com.example.helpdesk_saas.dto.ForgotPasswordOTPRequestDTO;
 import com.example.helpdesk_saas.dto.ForgotPasswordRequestDTO;
 import com.example.helpdesk_saas.dto.LoginDTO;
 import com.example.helpdesk_saas.dto.RegisterDTO;
@@ -88,9 +89,26 @@ public class AuthController {
 
 
     @PostMapping("/forgot-password")
-    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequestDTO requestDTO){
+    public ResponseEntity<String> forgotPassword(@Valid @RequestBody ForgotPasswordRequestDTO requestDTO){
         String response = authService.forgotPassword(requestDTO.getEmail());
         return ResponseEntity.ok(response);
+    }
+
+
+    @PostMapping("/forgot-password/otp/verify")
+    public ResponseEntity<String> verifyLoginOTP(@RequestBody ForgotPasswordOTPRequestDTO requestDTO, HttpServletResponse response){
+        String token = authService.verifyLoginOTP(requestDTO.getEmail(), requestDTO.getOtp());
+
+        ResponseCookie cookie = ResponseCookie.from("accessToken", token)
+                .httpOnly(true)
+                .secure(false)
+                .path("/")
+                .maxAge(Duration.ofDays(1))
+                .sameSite("Lax")
+                .build();
+
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        return ResponseEntity.ok("Login Successful");
     }
 
 }
